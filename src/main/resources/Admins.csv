@@ -1,0 +1,17 @@
+﻿UserID,FirstName,LastName,UserRole,Email,Password,AdminID
+U003,Sarah,White,Admin,sarah.white@example.com,admin987,A001
+U007,Emily,Davis,Admin,emily.davis@example.com,root2025,A002
+U012,Benjamin,Thomas,Admin,benjamin.thomas@example.com,adm1122,A003
+U016,Noah,Lee,Admin,noah.lee@example.com,admin3344,A004
+U021,Isabella,Walker,Admin,isabella.walker@example.com,adm9988,A005
+U025,Madison,Wright,Admin,madison.wright@example.com,admin7766,A006
+U029,Zoey,Baker,Admin,zoey.baker@example.com,adm3344,A007
+U034,Gabriel,Roberts,Admin,gabriel.roberts@example.com,admin1122,A008
+U037,Victoria,Ramirez,Admin,victoria.ramirez@example.com,adm6677,A009
+U041,Ella,Rivera,Admin,ella.rivera@example.com,admin3344,A010
+U045,Aubrey,Brooks,Admin,aubrey.brooks@example.com,adm8899,A011
+U049,Scarlett,Ross,Admin,scarlett.ross@example.com,admin5566,A012
+U053,Sebastian,Powell,Admin,sebastian.powell@example.com,adm2233,A013
+U057,Jason,Howard,Admin,jason.howard@example.com,admin6677,A014
+U062,Eleanor,Stone,Admin,eleanor.stone@example.com,adm4455,A015
+U067,Gabriel,Sullivan,Admin,gabriel.sullivan@example.com,admin1122,A016

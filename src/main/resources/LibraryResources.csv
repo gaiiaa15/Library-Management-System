@@ -1,0 +1,70 @@
+ItemID,Name,Publisher,PublishDate,Availability,AmountAvailable,Type
+I001,Advanced Computing,TechBooks Ltd,2019,Yes,3,Book
+I002,Modern AI Trends,Innovate Press,2021,Yes,23,Book
+I003,World History Review,History House,2018,No,0,Journal
+I004,Science Daily,Science Press,2022,Yes,6,Journal
+I005,Audio Learning 101,EduMedia,2020,Yes,4,Media
+I006,Introduction to Robotics,TechBooks Ltd,2019,Yes,2,Book
+I007,Health & Wellness,Wellness Press,2020,No,0,Journal
+I008,Coding in Python,EduTech,2021,Yes,6,Book
+I009,Business Insights,Business Hub,2022,Yes,3,Journal
+I010,Learning Spanish,Language Media,2019,Yes,5,Media
+I011,Data Science Essentials,TechBooks Ltd,2020,Yes,4,Book
+I012,Education Today,EduPress,2021,No,0,Journal
+I013,Mastering Java,TechBooks Ltd,2018,Yes,6,Book
+I014,Fitness Monthly,FitPress,2022,Yes,3,Journal
+I015,History of Art,ArtHouse,2020,Yes,2,Book
+I016,Podcasting Basics,AudioMedia,2021,Yes,5,Media
+I017,Cloud Computing Guide,TechBooks Ltd,2022,Yes,4,Book
+I018,AI Research Journal,Innovate Press,2021,No,0,Journal
+I019,Introduction to Chemistry,Science House,2019,Yes,6,Book
+I020,Education Weekly,EduPress,2022,Yes,3,Journal
+I021,Graphic Design Basics,ArtMedia,2020,Yes,1,Book
+I022,Travel Documentary,MediaWorld,2021,Yes,4,Media
+I023,Physics Experiments,Science House,2019,Yes,5,Book
+I024,Modern Medicine,Health Press,2020,No,0,Journal
+I025,Advanced JavaScript,EduTech,2022,Yes,6,Book
+I026,Art History Today,ArtHouse,2021,Yes,3,Journal
+I027,Learning French,Language Media,2020,Yes,2,Media
+I028,Cybersecurity Guide,TechBooks Ltd,2021,Yes,4,Book
+I029,AI Magazine,Innovate Press,2022,Yes,3,Journal
+I030,Music Production,AudioMedia,2019,Yes,5,Media
+I031,Statistics Basics,EduTech,2020,Yes,4,Book
+I032,Health Journal,Wellness Press,2021,No,0,Journal
+I033,Database Systems,TechBooks Ltd,2019,Yes,6,Book
+I034,Science Weekly,Science Press,2020,Yes,3,Journal
+I035,Machine Learning,TechBooks Ltd,2021,Yes,5,Book
+I036,Business Today,Business Hub,2022,Yes,2,Journal
+I037,Cooking Essentials,FoodMedia,2020,Yes,4,Book
+I038,History Journal,History House,2021,No,0,Journal
+I039,Java Programming,EduTech,2019,Yes,6,Book
+I040,Art Magazine,ArtHouse,2022,Yes,3,Journal
+I041,English Grammar Basics,Language Media,2020,Yes,2,Book
+I042,Documentary Films,MediaWorld,2021,Yes,4,Media
+I043,Physics for Beginners,Science House,2019,Yes,5,Book
+I044,Health & Fitness,Wellness Press,2020,No,0,Journal
+I045,Web Development Guide,EduTech,2022,Yes,6,Book
+I046,Art & Design Today,ArtHouse,2021,Yes,2,Journal
+I047,Spanish Lessons,Language Media,2020,Yes,2,Media
+I048,Robotics Monthly,TechBooks Ltd,2021,Yes,1,Book
+I049,AI Research Today,Innovate Press,2022,Yes,3,Journal
+I050,Audio Tutorials,AudioMedia,2019,Yes,5,Media
+I051,Computer Networks,TechBooks Ltd,2020,Yes,4,Book
+I052,Education Insights,EduPress,2021,No,0,Journal
+I053,Java Advanced,EduTech,2018,Yes,6,Book
+I054,Fitness Journal,FitPress,2022,Yes,3,Journal
+I055,Modern Art,ArtHouse,2020,Yes,2,Book
+I056,Podcast Production,AudioMedia,2021,Yes,5,Media
+I057,Cloud Architecture,TechBooks Ltd,2022,Yes,4,Book
+I058,AI Studies,Innovate Press,2021,No,0,Journal
+I059,Chemistry Basics,Science House,2019,Yes,5,Book
+I060,Education Daily,EduPress,2022,Yes,3,Journal
+I061,Graphic Design Today,ArtMedia,2020,Yes,2,Book
+I062,Travel Films,MediaWorld,2021,Yes,4,Media
+I063,Physics Advanced,Science House,2019,Yes,5,Book
+I064,Medicine Today,Health Press,2020,No,0,Journal
+I065,JavaScript Essentials,EduTech,2022,Yes,6,Book
+I066,Art Review,ArtHouse,2021,Yes,3,Journal
+I067,French Lessons,Language Media,2020,Yes,2,Media
+I068,Cybersecurity Today,TechBooks Ltd,2021,Yes,4,Book
+I069,AI Weekly,Innovate Press,2022,Yes,3,Journal

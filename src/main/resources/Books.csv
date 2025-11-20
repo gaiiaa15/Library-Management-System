@@ -1,0 +1,33 @@
+ItemID,BookID,ISBN,Genre,PageCount,AuthorName
+I001,B001,978-1-23456-001-0,Computing,450,Emma Carter
+I002,B002,978-1-23456-002-7,AI,380,Liam Scott
+I006,B003,978-1-23456-003-4,Robotics,420,Olivia Brown
+I008,B004,978-1-23456-004-1,Python,360,Noah Johnson
+I011,B005,978-1-23456-005-8,Data Science,400,Grace Wilson
+I013,B006,978-1-23456-006-5,Java,390,James Miller
+I015,B007,978-1-23456-007-2,Art,350,Chloe Davis
+I017,B008,978-1-23456-008-9,Cloud Computing,410,Alexander Moore
+I019,B009,978-1-23456-009-6,Chemistry,430,Sophia Taylor
+I021,B010,978-1-23456-010-2,Graphic Design,300,Mason White
+I023,B011,978-1-23456-011-9,Physics,380,Ella Harris
+I025,B012,978-1-23456-012-6,JavaScript,350,Benjamin Lewis
+I028,B013,978-1-23456-013-3,Cybersecurity,400,Emily Walker
+I031,B014,978-1-23456-014-0,Statistics,360,Jacob Hall
+I033,B015,978-1-23456-015-7,Database,420,Amelia Allen
+I035,B016,978-1-23456-016-4,Machine Learning,380,Lucas Young
+I037,B017,978-1-23456-017-1,Cooking,320,Charlotte King
+I039,B018,978-1-23456-018-8,Java,390,Ethan Scott
+I041,B019,978-1-23456-019-5,English Grammar,300,Savannah Adams
+I043,B020,978-1-23456-020-1,Physics,380,Daniel Baker
+I045,B021,978-1-23456-021-8,Web Development,360,Harper Evans
+I047,B022,978-1-23456-022-5,Spanish,340,Lily Carter
+I048,B023,978-1-23456-023-2,Robotics,410,Owen Mitchell
+I051,B024,978-1-23456-024-9,Computer Networks,400,Aubrey Collins
+I053,B025,978-1-23456-025-6,Java Advanced,390,Chloe Brooks
+I055,B026,978-1-23456-026-3,Modern Art,350,Mason Turner
+I057,B027,978-1-23456-027-0,Cloud Architecture,410,Naomi Hughes
+I059,B028,978-1-23456-028-7,Chemistry,430,Ethan Foster
+I061,B029,978-1-23456-029-4,Graphic Design,300,Amelia Reed
+I063,B030,978-1-23456-030-0,Physics,380,Lucas Rivera
+I065,B031,978-1-23456-031-7,JavaScript,360,Harper Gray
+I068,B032,978-1-23456-032-4,Cybersecurity,400,Sophia Mitchell

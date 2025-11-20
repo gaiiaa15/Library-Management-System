@@ -1,0 +1,27 @@
+﻿ItemID,IssueNumber,Category,Genre,PageCount,Publisher
+I003,J001,Article,History,30,History House
+I004,J002,Magazine,Science,25,Science Press
+I007,J003,Newspaper,Health,28,Wellness Press
+I009,J004,Article,Business,32,Business Hub
+I012,J005,Magazine,Education,26,EduPress
+I014,J006,Magazine,Fitness,24,FitPress
+I018,J007,Article,AI,30,Innovate Press
+I020,J008,Newspaper,Education,28,EduPress
+I024,J009,Article,Health,30,Health Press
+I026,J010,Magazine,Art,27,ArtHouse
+I029,J011,Magazine,AI,25,Innovate Press
+I032,J012,Article,Health,28,Wellness Press
+I034,J013,Newspaper,Science,30,Science Press
+I036,J014,Newspaper,Business,32,Business Hub
+I038,J015,Article,History,28,History House
+I040,J016,Magazine,Art,26,ArtHouse
+I044,J017,Magazine,Health,24,Wellness Press
+I046,J018,Magazine,Art,27,ArtHouse
+I049,J019,Article,AI,30,Innovate Press
+I052,J020,Article,Education,28,EduPress
+I054,J021,Magazine,Fitness,24,FitPress
+I058,J022,Article,AI,30,Innovate Press
+I060,J023,Newspaper,Education,28,EduPress
+I064,J024,Article,Health,30,Health Press
+I066,J025,Magazine,Art,27,ArtHouse
+I069,J026,Newspaper,AI,25,Innovate Press
