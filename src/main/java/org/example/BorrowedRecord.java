@@ -14,8 +14,11 @@ public class BorrowedRecord {
     private LocalDate dueDate;
     private boolean extended;
     private boolean returned;
+
+    //constructor
     public BorrowedRecord(String userID, String userName, String itemID, String itemName,
                           LocalDate borrowDate, LocalDate dueDate, boolean extended, boolean returned) {
+        // setters
         this.userID = userID;
         this.userName = userName;
         this.itemID = itemID;

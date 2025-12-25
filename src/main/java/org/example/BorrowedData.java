@@ -33,20 +33,26 @@ public class BorrowedData {
             }
         }
 
+
         System.out.println("Borrowed records synced to user objects.");
     }
-    public static void showBorrowedForUser(User user) {
-        System.out.println("\n===== YOUR BORROWED ITEMS =====");
 
-        List<BorrowedRecord> myList = borrowedRecords.stream()
+    // this is the method that shows the borrowed items for the logged-in user
+    public static void showBorrowedForUser(User user) {
+        // title
+        System.out.println("\n===== YOUR BORROWED ITEMS =====");
+        // finds all borrowed items for a specific user
+        List<BorrowedRecord> myList = borrowedRecords.stream()// allows you to use filters and collectors
                 .filter(r -> r.getUserID().equals(user.getUserID()))
-                .collect(Collectors.toList());   // <-- FIXED
+                .collect(Collectors.toList());
+
 
         if (myList.isEmpty()) {
             System.out.println("You have no borrowed items.");
             return;
         }
 
+        // the output for the list of borrowed items
         for (BorrowedRecord r : myList) {
             System.out.println(
                     "\nItem: " + r.getItemName() +

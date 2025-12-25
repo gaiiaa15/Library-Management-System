@@ -66,7 +66,7 @@ public class StudentMenu {
                     break;
 
                 case "6":
-                    System.out.println("Logging out...");
+                    LoginManager.logout();
                     running = false;
                     break;
 

@@ -4,20 +4,18 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        // Load & link data
-        //CSVReaderUtil.loadAllData();
-//        // TEMP: Test printing all borrowed records
-//        System.out.println("=== CURRENT BORROWED RECORDS IN MEMORY ===");
-//        BorrowedData.borrowedRecords.forEach(System.out::println);
-//        System.out.println("=== END BORROWED RECORDS ===");
 
-        // Start login process
-       // User loggedInUser = LoginManager.login();
-        // Redirect based on role
-        //LoginManager.directUser(loggedInUser);
+                // Load all data
+                CSVReaderUtil.loadAllData();
+
+                // 1. Login and get the authenticated user
+                User user = LoginManager.login();
+
+                // 2. Route user to correct dashboard
+                LoginManager.directUser(user);
 
         // Run librarian automated tests
-        Testing.runTests();
+        //Testing.runTests();
 
     }
 }

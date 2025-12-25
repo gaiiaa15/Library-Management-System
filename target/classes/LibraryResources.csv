@@ -1,6 +1,6 @@
 ItemID,Name,Publisher,PublishDate,Availability,AmountAvailable,Type
-I001,Advanced Computing,TechBooks Ltd,2019,Yes,3,Book
-I002,Modern AI Trends,Innovate Press,2021,Yes,18,Book
+I001,Advanced Computing,TechBooks Ltd,2019,Yes,4,Book
+I002,Modern AI Trends,Innovate Press,2021,Yes,33,Book
 I003,World History Review,History House,2018,No,0,Journal
 I004,Science Daily,Science Press,2022,Yes,6,Journal
 I005,Audio Learning 101,EduMedia,2020,Yes,4,Media

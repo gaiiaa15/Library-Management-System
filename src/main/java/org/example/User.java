@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-// a static list that holds all the user objects currently loaded in memory
+    // a static list that holds all the user objects currently loaded in memory
     //its static so it belongs to the user class itself
     //it is used in log in manager.
     public static List<User> users = new ArrayList<>();

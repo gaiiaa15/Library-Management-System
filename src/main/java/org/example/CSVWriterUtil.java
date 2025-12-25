@@ -5,15 +5,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+/*
+ * Utility class responsible for writing all LMS data back to CSV files.
+ *
+ * This class saves:
+ *  - Library resources (parent table)
+ *  - Borrowed records
+ *  - Users (Admins, Librarians, Students)
+ *  - Resource type details (Books, Journals, Media)
+ *
+ * Each save method rewrites the entire CSV file in a clean, structured manner.
+ */
 public class CSVWriterUtil {
 
-    // Save ALL LibraryResources back to CSV
+
+     // Saves the entire LibraryResources list back to a CSV file.
+     // This updates copies, availability, and names after stock changes or borrow/return actions.
+
     public static void saveLibraryResources(String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
 
-            // CSV header
+            // Write column headers
             writer.write("ItemID,Name,Publisher,PublishDate,Availability,AmountAvailable,Type\n");
 
+            // Write each resource as one row
             for (LibraryResources r : LibraryResources.resources) {
                 writer.write(
                         r.getItemID() + "," +
@@ -34,15 +49,20 @@ public class CSVWriterUtil {
         }
     }
 
-    //saves the borrowed items to BorrowedRecord.csv file
+
+
+     // Saves all borrowing records to the BorrowedRecords.csv file.
+     // This includes due dates, extended flag, and user/item details.
     public static void saveBorrowedRecords(String filePath, List<BorrowedRecord> list) {
 
         System.out.println("Saving borrowed records to: " + new File(filePath).getAbsolutePath());
 
         try (FileWriter writer = new FileWriter(filePath)) {
 
+            // Write CSV header
             writer.write("UserID,UserName,ItemID,ItemName,BorrowDate,DueDate,Extended\n");
 
+            // Save each BorrowedRecord object
             for (BorrowedRecord record : list) {
                 writer.write(
                         record.getUserID() + "," +
@@ -63,17 +83,24 @@ public class CSVWriterUtil {
         }
     }
 
+
+
+     //Saves all users in the system (parent table User.csv).
+
     public static void saveUsers(String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
+
             writer.write("UserID,FirstName,LastName,UserRole,Email,Password\n");
 
             for (User u : User.users) {
-                writer.write(u.getUserID() + "," +
-                        u.getFirstName() + "," +
-                        u.getLastName() + "," +
-                        u.getUserRole() + "," +
-                        u.getEmail() + "," +
-                        u.getPassword() + "\n");
+                writer.write(
+                        u.getUserID() + "," +
+                                u.getFirstName() + "," +
+                                u.getLastName() + "," +
+                                u.getUserRole() + "," +
+                                u.getEmail() + "," +
+                                u.getPassword() + "\n"
+                );
             }
 
             System.out.println("Users saved.");
@@ -82,6 +109,11 @@ public class CSVWriterUtil {
             System.out.println("Error saving users");
         }
     }
+
+
+
+      //Saves Admin-specific details to Admins.csv.
+    //Includes AdminID which is unique to Administrator accounts.
 
     public static void saveAdmins(String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
@@ -108,6 +140,10 @@ public class CSVWriterUtil {
         }
     }
 
+
+
+     //Saves Librarian-specific details including StaffID.
+
     public static void saveLibrarians(String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
 
@@ -133,6 +169,10 @@ public class CSVWriterUtil {
         }
     }
 
+
+
+    //Saves Student-specific details including StudentID.
+
     public static void saveStudents(String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
 
@@ -157,8 +197,13 @@ public class CSVWriterUtil {
             e.printStackTrace();
         }
     }
+
+
+
+     //Saves detailed Book information.
     public static void saveBooks(String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
+
             writer.write("ItemID,BookID,ISBN,Genre,PageCount,AuthorName\n");
 
             for (Books b : Books.books) {
@@ -179,8 +224,13 @@ public class CSVWriterUtil {
         }
     }
 
+
+
+    //  Saves detailed Journal information.
+
     public static void saveJournals(String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
+
             writer.write("ItemID,JournalID,Category,Genre,PageCount,IssueNumber\n");
 
             for (Journals j : Journals.journals) {
@@ -201,8 +251,13 @@ public class CSVWriterUtil {
         }
     }
 
+
+
+    //Saves detailed Media information.
+
     public static void saveMedia(String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
+
             writer.write("ItemID,MediaID,Topic,FileSize,Format,Duration\n");
 
             for (Media m : Media.mediaList) {

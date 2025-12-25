@@ -1,2 +1,1 @@
 UserID,UserName,ItemID,ItemName,BorrowDate,DueDate,Extended
-U002,David Smith,I001,Advanced Computing,2025-11-20,2025-12-04,true

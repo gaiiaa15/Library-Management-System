@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class BorrowManager {
 
+    // this is the borrowing items method whoch called in
     public static boolean borrowItem(User user, String itemID) {
 
         // Normalize input
@@ -12,9 +13,9 @@ public class BorrowManager {
         LocalDate borrowDate = LocalDate.now();
         LocalDate dueDate = borrowDate.plusWeeks(2);  // 2-week borrow period
 
-        // Find the resource from memory (case-insensitive)
+        // Find the resource from memory
         LibraryResources resource = LibraryResources.resources.stream()
-                .filter(r -> r.getItemID().trim().equalsIgnoreCase(normalizedID))
+                .filter(r -> r.getItemID().trim().equalsIgnoreCase(normalizedID)) // case insensitive
                 .findFirst()
                 .orElse(null);
 
@@ -27,7 +28,7 @@ public class BorrowManager {
         boolean success = user.borrowResource(resource);
 
         if (success) {
-
+            // creates the Borrowed record with all the information needed
             BorrowedRecord record = new BorrowedRecord(
                     user.getUserID(),
                     user.getFirstName() + " " + user.getLastName(),

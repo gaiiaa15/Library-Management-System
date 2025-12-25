@@ -19,7 +19,7 @@ public class Testing {
         // Predefined IDs
         String testItemID = "I001";     // EXISTING
         String stockTestID = "I002";    // EXISTING
-        String testNewID = "I999";      // TEST RESOURCE (safe)
+        String testNewID = "I999";      // TEST RESOURCE
 
         // ---------------------------------------------------------
         System.out.println("\nTEST 1: View All Resources");

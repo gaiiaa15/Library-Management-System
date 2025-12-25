@@ -3,28 +3,48 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Represents a Journal resource (magazine, newspaper, article, etc.)
+ * This is a CHILD class of LibraryResources.
+ *
+ * Journals.csv contains:
+ * ItemID, JournalID, Category, Genre, PageCount, IssueNumber
+ */
 public class Journals extends LibraryResources {
 
-    // Static storage list
+     // Stores all Journal objects loaded from Journals.csv
+     // This acts like an in-memory table for all journals.
+
     public static List<Journals> journals = new ArrayList<>();
 
-    // Child-specific fields
-    private String journalID;
-    private String category;
-    private String genre;
-    private int pageCount;
-    private String issueNumber;
 
-    // Empty constructor (required)
+    private String journalID;       // Unique ID for journal (e.g., J001)
+    private String category;        // Magazine, Newspaper, Article, etc.
+    private String genre;           // Subject category (Technology, Finance…)
+    private int pageCount;          // Number of pages
+    private String issueNumber;     // Issue reference (e.g., Issue 10)
+
+
+
+     // Empty constructor — required for reflection or future use.
     public Journals() {
         super();
     }
 
-    // Constructor for loading Journals.csv (6 columns)
+
+     // Constructor used when loading from Journals.csv.
+     // @param itemID       Parent reference ID (shared with LibraryResources)
+     // @param journalID    Unique journal identifier
+     // @param category     Category (Magazine, Newspaper…)
+     // @param genre        Topic/genre
+     // @param pageCount    Number of pages
+     // @param issueNumber  Issue number
+
     public Journals(String itemID, String journalID, String category,
                     String genre, int pageCount, String issueNumber) {
 
-        super(itemID);  // Only itemID is known here
+        // Calls the parent constructor, setting only the itemID for now
+        super(itemID);
 
         this.journalID = journalID;
         this.category = category;
@@ -33,7 +53,9 @@ public class Journals extends LibraryResources {
         this.issueNumber = issueNumber;
     }
 
-    // Getters and setters
+
+
+    // GETTERS & SETTERS
     public String getJournalID() { return journalID; }
     public void setJournalID(String journalID) { this.journalID = journalID; }
 
@@ -48,6 +70,14 @@ public class Journals extends LibraryResources {
 
     public String getIssueNumber() { return issueNumber; }
     public void setIssueNumber(String issueNumber) { this.issueNumber = issueNumber; }
+
+
+
+
+
+      //Returns a readable representation of a Journal including:
+      // - parent fields (name, publisher, etc.)
+     // - journal-specific fields (category, genre, issue number…)
 
     @Override
     public String toString() {

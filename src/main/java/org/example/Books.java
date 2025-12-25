@@ -43,12 +43,6 @@ public class Books extends LibraryResources {
     public int getPageCount() { return pageCount; }
     public String getAuthorName() { return authorName; }
 
-    //setters
-    public void setBookID(String bookID) { this.bookID = bookID; }
-    public void setIsbn(String isbn) { this.isbn = isbn; }
-    public void setGenre(String genre) { this.genre = genre; }
-    public void setPageCount(int pageCount) { this.pageCount = pageCount; }
-    public void setAuthorName(String authorName) { this.authorName = authorName; }
 
 
     // Printable Output

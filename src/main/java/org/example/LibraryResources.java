@@ -1,29 +1,37 @@
 package org.example;
 
-//parent class for all the resources
+import java.util.ArrayList;
+import java.util.List;
+
+
+ // Parent class representing a generic library resource.
 public class LibraryResources {
 
-    //this will store all the loaded resources from LibraryResources.csv
-    public static java.util.List<LibraryResources> resources = new java.util.ArrayList<>();
 
-    //parent attributes
-    private String itemID;
-    private String name;
-    private String publisher;
-    private String publishDate;
-    private String availability;
-    private int amountAvailable;
-    private String type;
+     // Global list storing ALL loaded library resources.
+    public static List<LibraryResources> resources = new ArrayList<>();
 
-    // Empty constructor
+// Shred Parent Attributes
+    private String itemID;          // Unique resource identifier (e.g., I001)
+    private String name;            // Title or resource name
+    private String publisher;       // Publisher name
+    private String publishDate;     // Year/Date published
+    private String availability;    // Yes / No
+    private int amountAvailable;    // Number of copies
+    private String type;            // Book / Journal / Media
+
+     // Empty constructor
     public LibraryResources() {}
 
-    // Constructor used by children when loading CSV
+
+     // Constructor used when child classes only know the ItemID initially.
+     // (During CSV linking, children inherit additional details.)
     public LibraryResources(String itemID) {
         this.itemID = itemID;
     }
 
-    // Full constructor (used when loading parent CSV)
+
+     // Full constructor for loading data directly from LibraryResources.csv.
     public LibraryResources(String itemID, String name, String publisher,
                             String publishDate, String availability,
                             int amountAvailable, String type) {
@@ -37,7 +45,8 @@ public class LibraryResources {
         this.type = type;
     }
 
-    // Getters
+
+    // GETTERS
     public String getItemID() { return itemID; }
     public String getName() { return name; }
     public String getPublisher() { return publisher; }
@@ -46,7 +55,8 @@ public class LibraryResources {
     public int getAmountAvailable() { return amountAvailable; }
     public String getType() { return type; }
 
-    //setters
+
+    // SETTERS
     public void setName(String name) { this.name = name; }
     public void setPublisher(String publisher) { this.publisher = publisher; }
     public void setPublishDate(String publishDate) { this.publishDate = publishDate; }
@@ -55,19 +65,20 @@ public class LibraryResources {
     public void setType(String type) { this.type = type; }
 
 
+
+
+     // Generates a consistent table header when listing resources.
+
     public static String getTableHeader() {
         return String.format(
                 "%-8s | %-30s | %-15s | %-12s | %-12s | %-5s | %-10s",
-                "ItemID",
-                "Name",
-                "Publisher",
-                "Published",
-                "Availability",
-                "Left",
-                "Type"
-        ) +
-                "\n-----------------------------------------------------------------------------------------------";
+                "ItemID", "Name", "Publisher", "Published",
+                "Availability", "Left", "Type"
+        ) + "\n-----------------------------------------------------------------------------------------------";
     }
+
+
+     // Clean row output matching the header formatting.
     @Override
     public String toString() {
         return String.format(

@@ -1,4 +1,4 @@
-﻿ItemID,IssueNumber,Category,Genre,PageCount,Publisher
+ItemID,JournalID,Category,Genre,PageCount,IssueNumber
 I003,J001,Article,History,30,History House
 I004,J002,Magazine,Science,25,Science Press
 I007,J003,Newspaper,Health,28,Wellness Press

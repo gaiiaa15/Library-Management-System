@@ -1,13 +1,27 @@
 package org.example;
 
-
 import java.util.Scanner;
 
+
+ // This class handles the librarian dashboard menu.
+ // It displays all available librarian options and routes the user
+ // to the correct function based on input.
 public class LibrarianMenu {
+
+    // Scanner used to read librarian input
     private static Scanner librarianInput = new Scanner(System.in);
+
+
+     // Displays the librarian dashboard and processes menu choices.
+     // The loop continues until the librarian selects "Logout".
+
     public static void display() {
+
         boolean running = true;
-        while(running) {
+
+        while (running) {
+
+            // Display menu
             System.out.println("\n===== LIBRARIAN DASHBOARD =====");
             System.out.println("1. View All Resources");
             System.out.println("2. Borrow Resource");
@@ -19,38 +33,48 @@ public class LibrarianMenu {
             System.out.println("8. Manage Stock");
             System.out.println("9. Logout");
 
+            // Read menu choice
             String librarianChoice = librarianInput.nextLine();
-            switch(librarianChoice){
+
+            switch (librarianChoice) {
+
+                // 1. Show all library resources in table format
                 case "1":
                     System.out.println(LibraryResources.getTableHeader());
                     LibraryResources.resources.forEach(System.out::println);
                     break;
 
+                // 2. Borrow an item
                 case "2":
                     System.out.print("Enter Item ID to borrow: ");
                     String itemID = librarianInput.nextLine();
                     BorrowManager.borrowItem(LoginManager.loggedInUser, itemID);
                     break;
 
+                // 3. Extend a borrowed item's due date
                 case "3":
                     System.out.print("Enter Item ID to extend: ");
                     ExtendManager.extendBorrow(LoginManager.loggedInUser, librarianInput.nextLine());
                     break;
 
-                case"4":
+                // 4. Show borrowed items for this librarian only
+                case "4":
                     BorrowedData.showBorrowedForUser(LoginManager.loggedInUser);
                     break;
 
+                // 5. Show ALL borrow records in the system
                 case "5":
                     LibrarianViewBorrowed.showAllBorrowed();
                     break;
 
+                // 6. Return an item
                 case "6":
                     System.out.print("Enter Item ID to return: ");
                     String returnID = librarianInput.nextLine();
                     ReturnManager.returnItem(LoginManager.loggedInUser, returnID);
                     break;
 
+                // 7. Check availability of a single resource by ID
                 case "7":
                     System.out.print("Enter Item ID: ");
                     String id = librarianInput.nextLine();
@@ -67,15 +91,18 @@ public class LibrarianMenu {
                     }
                     break;
 
+                // 8. Manage stock (add/remove/update resources)
                 case "8":
                     StockManager.manageStock();
                     break;
 
+                // 9. Logout
                 case "9":
-                    System.out.println("Logging out...");
+                    LoginManager.logout();
                     running = false;
                     break;
 
+                // Invalid inputs
                 default:
                     System.out.println("Invalid choice, try again.");
 

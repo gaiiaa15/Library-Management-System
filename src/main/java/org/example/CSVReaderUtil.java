@@ -21,10 +21,14 @@ public class CSVReaderUtil {
             BufferedReader br;
             File file = new File(filePath);
 
+            //checks if the file exists
             if (file.exists()) {
+                //if it does it reads the file
                 br = new BufferedReader(new FileReader(file));
             } else {
+                // tries to load the file form the resources folder
                 InputStream is = CSVReaderUtil.class.getResourceAsStream("/" + filePath);
+                //if the file is not found anywhere it outputs file not found
                 if (is == null) throw new IOException("File not found: " + filePath);
                 br = new BufferedReader(new InputStreamReader(is));
             }
@@ -47,10 +51,14 @@ public class CSVReaderUtil {
         return data;
     }
     // this lets you reload any csv file with one reusable function
+    //generic method (<T>) created any type of object
     public static <T> List<T> loadCSV(String filePath, Function<String[], T> mapper) {
+        // new empty list
         List<T> list = new ArrayList<>();
+        // calls csv file and reads it
         for (String[] row : readCSV(filePath)) {
             try {
+                // this makes the csv rows become objects in memory
                 list.add(mapper.apply(row));
             } catch (Exception e) {
                 System.out.println("Skipping invalid row: " + Arrays.toString(row));
@@ -60,7 +68,7 @@ public class CSVReaderUtil {
     }
 
 
-    // 3. SPECIFIC LOADERS (NOW USING GENERIC MAPPER)
+    // 3. Specific Loaders (using generic mapper)
     public static List<User> loadUsers(String path) {
         return loadCSV(path, row -> new User(
                 row[0], row[1], row[2], row[3], row[4], row[5]
@@ -133,13 +141,31 @@ public class CSVReaderUtil {
         ));
     }
 
-    // 4. GENERIC LINKERS (USER + RESOURCES)
+    /*
+     * Links child resource objects (Books, Journals, Media) with their corresponding
+     * parent resource entry from LibraryResources.
+     *
+     * This method fills in inherited/common attributes (name, publisher, availability, etc.)
+     * inside each child object by matching them with the correct parent entry using ItemID.
+     *
+     * @param children A list of child resource objects (Book, Journal, Media)
+     * @param parents  The master list of LibraryResources (the parent table)
+     * @param <T>      A type that extends LibraryResources (ensures type safety)
+     */
     public static <T extends LibraryResources> void linkResourceData(
             List<T> children, List<LibraryResources> parents
     ) {
+        // Loop through each child object (Book, Journal, Media)
         for (T child : children) {
+
+            // For each child, scan the entire parent list for a matching ItemID
             for (LibraryResources parent : parents) {
+
+                // If the ItemID of a child resource matches the parent's ItemID,
+                // this means they represent the same real-world resource.
                 if (child.getItemID().equals(parent.getItemID())) {
+
+                    // Copy all shared fields from the parent resource into the child object.
                     child.setName(parent.getName());
                     child.setPublisher(parent.getPublisher());
                     child.setPublishDate(parent.getPublishDate());
@@ -151,12 +177,30 @@ public class CSVReaderUtil {
         }
     }
 
+    /*
+     * Links child user objects (Admin, Librarian, Student) with their
+     * corresponding record in the main Users list.
+     *
+     * This method copies all shared user attributes (first name, last name,
+     * role, email, password) from the parent User object into the child object.
+     *
+     * @param children A list of child user objects (Admin, Librarian, Student)
+     * @param parents  The main list of all User objects loaded from Users.csv
+     * @param <T>      A type that extends User (ensures type safety)
+     */
     public static <T extends User> void linkUserData(
             List<T> children, List<User> parents
     ) {
+        // Loop through each child object (Admin, Librarian, Student)
         for (T child : children) {
+
+            // For each child, look through ALL parent users
             for (User parent : parents) {
+
+                // Match child & parent using their UserID (unique identifier)
                 if (child.getUserID().equals(parent.getUserID())) {
+
+                    // Copy shared attributes from the parent into the child
                     child.setFirstName(parent.getFirstName());
                     child.setLastName(parent.getLastName());
                     child.setUserRole(parent.getUserRole());
@@ -168,36 +212,51 @@ public class CSVReaderUtil {
     }
 
 
- // this calls all the other load methods and loads them in the correct order
-    // links users to admins, students and librarians
-    //links library resources to media, books and journals
-    //loads borrowed records
-    //syncs borrowed items into user objects
     public static void loadAllData() {
 
-        // Load all CSVs
+        //  1. Load All CSV Files Into Temporary Lists
+
+        // Load the master user table (contains all user personal data)
         List<User> users = loadUsers("src/main/resources/Users.csv");
+
+        // Load the main resource table (contains all resource parent info)
         List<LibraryResources> resources = loadLibraryResources("src/main/resources/LibraryResources.csv");
 
+        // Load child user tables (contain role-specific fields only)
         List<Admin> admins = loadAdmins("src/main/resources/Admins.csv");
         List<Librarian> librarians = loadLibrarians("src/main/resources/Librarians.csv");
         List<Student> students = loadStudents("src/main/resources/Students.csv");
 
+        // Load child resource tables (contain details specific to Books, Journals, Media)
         List<Books> books = loadBooks("src/main/resources/Books.csv");
         List<Journals> journals = loadJournals("src/main/resources/Journals.csv");
         List<Media> media = loadMedia("src/main/resources/Media.csv");
 
 
-        // Parent → Child Linking
+        // 2. Link Child Objects With Their Parent Object
+
+        // Join Admins.csv & Users.csv using UserID
         linkUserData(admins, users);
+
+        // Join Librarians.csv & Users.csv
         linkUserData(librarians, users);
+
+        // Join Students.csv & Users.csv
         linkUserData(students, users);
 
+        // Join Books.csv & LibraryResources.csv using ItemID
         linkResourceData(books, resources);
+
+        // Join Journals.csv & LibraryResources.csv
         linkResourceData(journals, resources);
+
+        // Join Media.csv & LibraryResources.csv
         linkResourceData(media, resources);
 
-        // Store results in class static lists
+
+        // 3. Store All Linked Data Into Static Lists
+
+        // These static lists are used throughout the whole LMS
         User.users = users;
         Admin.admins = admins;
         Librarian.librarians = librarians;
@@ -208,15 +267,25 @@ public class CSVReaderUtil {
         Journals.journals = journals;
         Media.mediaList = media;
 
-        BorrowedData.borrowedRecords = loadBorrowedRecords("src/main/resources/BorrowedRecords.csv");
 
+        // 4. Load Borrowed Records
+        BorrowedData.borrowedRecords =
+                loadBorrowedRecords("src/main/resources/BorrowedRecords.csv");
+
+
+        // 5. Sync Borrowed Items With User Objects
+
+        // Rebuild each user's borrowedResources list from BorrowedRecords.csv
         BorrowedData.syncBorrowedRecordsToUsers();
-        //validates the record recources ID
+
+
+        // 6. Clean Up Invalid Borrowed Records
+
+        // Remove any borrowed record where the resource no longer exists
         BorrowedData.borrowedRecords.removeIf(record ->
                 LibraryResources.resources.stream()
                         .noneMatch(r -> r.getItemID().equals(record.getItemID()))
         );
-
     }
 
     // 6. HELPERS

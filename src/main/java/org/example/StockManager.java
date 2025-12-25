@@ -1,12 +1,16 @@
 package org.example;
 
-
 import java.util.Scanner;
 
+//StockManager handles all operations related to managing the library’s resources.
+//This includes: Adding new resources (Books, Journals, Media), updating stock (changing the number of copies),removing resources completely from the system
+//It provides a menu-driven interface for librarians.
 public class StockManager {
 
+    // Scanner used for all user input inside StockManager
     private static final Scanner scanner = new Scanner(System.in);
 
+     //Displays the main Stock Management menu and routes the user's choice.
     public static void manageStock() {
         boolean running = true;
 
@@ -31,15 +35,15 @@ public class StockManager {
                     removeResource();
                     break;
                 case "4":
-                    running = false;
+                    running = false; // exit the stock menu
                     break;
                 default:
                     System.out.println("Invalid choice. Try again.");
             }
         }
     }
-
-    // =============== 1. ADD NEW RESOURCE ===============
+    // 1. ADD NEW RESOURCE
+    //Handles input and creation of a new resource in the system.
     private static void addNewResource() {
         System.out.println("\n=== ADD NEW RESOURCE ===");
         System.out.println("Select resource type:");
@@ -51,6 +55,7 @@ public class StockManager {
         String typeChoice = scanner.nextLine().trim();
         String type;
 
+        // Determine resource type from input
         switch (typeChoice) {
             case "1":
                 type = "Book";
@@ -66,9 +71,11 @@ public class StockManager {
                 return;
         }
 
+        // Generate next sequential ItemID (e.g., I033)
         String itemID = generateNextItemId();
         System.out.println("Generated ItemID: " + itemID);
 
+        // Collect main attributes
         System.out.print("Title / Name: ");
         String name = scanner.nextLine();
 
@@ -78,16 +85,17 @@ public class StockManager {
         System.out.print("Publish Year (e.g. 2021): ");
         String publishDate = scanner.nextLine();
 
+        // Number of available copies
         int amountAvailable = readInt("Amount available (number of copies): ");
         String availability = amountAvailable > 0 ? "Yes" : "No";
 
-        // Create parent resource
+        // Create parent resource entry
         LibraryResources resource = new LibraryResources(
                 itemID, name, publisher, publishDate, availability, amountAvailable, type
         );
         LibraryResources.resources.add(resource);
 
-        // Create specific child
+        // Create type-specific child entry
         switch (type) {
             case "Book":
                 addBookDetails(itemID);
@@ -100,7 +108,7 @@ public class StockManager {
                 break;
         }
 
-        // Save to CSVs
+        // Persist to CSV
         CSVWriterUtil.saveLibraryResources("src/main/resources/LibraryResources.csv");
         CSVWriterUtil.saveBooks("src/main/resources/Books.csv");
         CSVWriterUtil.saveJournals("src/main/resources/Journals.csv");
@@ -109,6 +117,8 @@ public class StockManager {
         System.out.println("New " + type + " added successfully.");
     }
 
+
+    // Add Book-specific fields
     private static void addBookDetails(String itemID) {
         String bookID = generateNextBookId();
         System.out.println("Generated BookID: " + bookID);
@@ -128,6 +138,8 @@ public class StockManager {
         Books.books.add(book);
     }
 
+
+    // Add Journal-specific fields
     private static void addJournalDetails(String itemID) {
         String journalID = generateNextJournalId();
         System.out.println("Generated JournalID: " + journalID);
@@ -147,6 +159,8 @@ public class StockManager {
         Journals.journals.add(journal);
     }
 
+
+    // Add Media-specific fields
     private static void addMediaDetails(String itemID) {
         String mediaID = generateNextMediaId();
         System.out.println("Generated MediaID: " + mediaID);
@@ -165,12 +179,15 @@ public class StockManager {
         Media.mediaList.add(media);
     }
 
-    // =============== 2. UPDATE STOCK ===============
+
+    // 2. UPDATE EXISTING RESOURCE STOCK
+     // Allows librarian to change number of copies for an item and updates the availability automatically.
     private static void updateStock() {
         System.out.println("\n=== UPDATE RESOURCE STOCK ===");
         System.out.print("Enter Item ID: ");
         String itemID = scanner.nextLine().trim();
 
+        // Find matching resource
         LibraryResources resource = LibraryResources.resources.stream()
                 .filter(r -> r.getItemID().equalsIgnoreCase(itemID))
                 .findFirst()
@@ -182,8 +199,9 @@ public class StockManager {
         }
 
         System.out.println("\nCurrent resource:");
-        System.out.println(resource.toString());
+        System.out.println(resource);
 
+        // Ask for the new stock level
         int newAmount = readInt("Enter NEW total copies (0 or more): ");
 
         if (newAmount < 0) {
@@ -191,6 +209,7 @@ public class StockManager {
             return;
         }
 
+        // Update resource fields
         resource.setAmountAvailable(newAmount);
         resource.setAvailability(newAmount > 0 ? "Yes" : "No");
 
@@ -199,7 +218,10 @@ public class StockManager {
         System.out.println("Stock updated successfully.");
     }
 
-    // =============== 3. REMOVE RESOURCE ===============
+    // 3. REMOVE RESOURCE COMPLETELY
+
+     //Removes the resource from: LibraryResources (parent), The matching child list (Books, Journals, Media), Borrowed records (if any exist)
+     //then saves all affected CSVs.
     private static void removeResource() {
         System.out.println("\n=== REMOVE RESOURCE ===");
         System.out.print("Enter Item ID: ");
@@ -216,7 +238,7 @@ public class StockManager {
         }
 
         System.out.println("\nYou are about to DELETE:");
-        System.out.println(resource.toString());
+        System.out.println(resource);
         System.out.print("Are you sure? (y/n): ");
         String confirm = scanner.nextLine().trim().toLowerCase();
 
@@ -228,56 +250,59 @@ public class StockManager {
         // Remove from parent list
         LibraryResources.resources.removeIf(r -> r.getItemID().equalsIgnoreCase(itemID));
 
-        // Remove from specific child list based on type
-        String type = resource.getType();
-        if ("Book".equalsIgnoreCase(type)) {
-            Books.books.removeIf(b -> b.getItemID().equalsIgnoreCase(itemID));
-        } else if ("Journal".equalsIgnoreCase(type)) {
-            Journals.journals.removeIf(j -> j.getItemID().equalsIgnoreCase(itemID));
-        } else if ("Media".equalsIgnoreCase(type)) {
-            Media.mediaList.removeIf(m -> m.getItemID().equalsIgnoreCase(itemID));
+        // Remove from child-specific list
+        switch (resource.getType().toLowerCase()) {
+            case "book":
+                Books.books.removeIf(b -> b.getItemID().equalsIgnoreCase(itemID));
+                break;
+            case "journal":
+                Journals.journals.removeIf(j -> j.getItemID().equalsIgnoreCase(itemID));
+                break;
+            case "media":
+                Media.mediaList.removeIf(m -> m.getItemID().equalsIgnoreCase(itemID));
+                break;
         }
 
-        // Remove any borrow records for this item
-        BorrowedData.borrowedRecords.removeIf(
-                br -> br.getItemID().equalsIgnoreCase(itemID)
-        );
 
-        // Save all CSVs
+        // Save all modified CSVs
         CSVWriterUtil.saveLibraryResources("src/main/resources/LibraryResources.csv");
         CSVWriterUtil.saveBooks("src/main/resources/Books.csv");
-        CSVWriterUtil.saveJournals("src/main/resources/Journal.csv");
+        CSVWriterUtil.saveJournals("src/main/resources/Journals.csv");
         CSVWriterUtil.saveMedia("src/main/resources/Media.csv");
-        CSVWriterUtil.saveBorrowedRecords("src/main/resources/BorrowedRecords.csv", BorrowedData.borrowedRecords);
+        CSVWriterUtil.saveBorrowedRecords(
+                "src/main/resources/BorrowedRecords.csv",
+                BorrowedData.borrowedRecords
+        );
 
         System.out.println("Resource removed successfully.");
     }
 
-    // =============== ID GENERATORS ===============
+
+    // ID GENERATORS
+     // Generates next ItemID in format I### (e.g., I021)
     private static String generateNextItemId() {
         int max = 0;
         for (LibraryResources r : LibraryResources.resources) {
-            String id = r.getItemID(); // e.g., I032
-            if (id != null && id.length() > 1 && Character.toUpperCase(id.charAt(0)) == 'I') {
+            String id = r.getItemID();
+            if (id != null && id.startsWith("I")) {
                 try {
-                    int n = Integer.parseInt(id.substring(1));
-                    if (n > max) max = n;
+                    int num = Integer.parseInt(id.substring(1));
+                    if (num > max) max = num;
                 } catch (NumberFormatException ignored) {}
             }
         }
-        int next = max + 1;
-        return String.format("I%03d", next);
+        return String.format("I%03d", max + 1);
     }
 
     private static String generateNextBookId() {
         int max = 0;
         for (Books b : Books.books) {
-            String id = b.getBookID(); // e.g., B012
-            if (id != null && id.length() > 1 && Character.toUpperCase(id.charAt(0)) == 'B') {
+            String id = b.getBookID();
+            if (id != null && id.startsWith("B")) {
                 try {
-                    int n = Integer.parseInt(id.substring(1));
-                    if (n > max) max = n;
-                } catch (NumberFormatException ignored) {}
+                    int num = Integer.parseInt(id.substring(1));
+                    if (num > max) max = num;
+                } catch (Exception ignored) {}
             }
         }
         return String.format("B%03d", max + 1);
@@ -286,12 +311,12 @@ public class StockManager {
     private static String generateNextJournalId() {
         int max = 0;
         for (Journals j : Journals.journals) {
-            String id = j.getJournalID(); // e.g., J005
-            if (id != null && id.length() > 1 && Character.toUpperCase(id.charAt(0)) == 'J') {
+            String id = j.getJournalID();
+            if (id != null && id.startsWith("J")) {
                 try {
-                    int n = Integer.parseInt(id.substring(1));
-                    if (n > max) max = n;
-                } catch (NumberFormatException ignored) {}
+                    int num = Integer.parseInt(id.substring(1));
+                    if (num > max) max = num;
+                } catch (Exception ignored) {}
             }
         }
         return String.format("J%03d", max + 1);
@@ -300,18 +325,19 @@ public class StockManager {
     private static String generateNextMediaId() {
         int max = 0;
         for (Media m : Media.mediaList) {
-            String id = m.getMediaID(); // e.g., M010
-            if (id != null && id.length() > 1 && Character.toUpperCase(id.charAt(0)) == 'M') {
+            String id = m.getMediaID();
+            if (id != null && id.startsWith("M")) {
                 try {
-                    int n = Integer.parseInt(id.substring(1));
-                    if (n > max) max = n;
-                } catch (NumberFormatException ignored) {}
+                    int num = Integer.parseInt(id.substring(1));
+                    if (num > max) max = num;
+                } catch (Exception ignored) {}
             }
         }
         return String.format("M%03d", max + 1);
     }
 
-    // =============== INPUT HELPERS ===============
+
+    // Input Validation Helpers
     private static int readInt(String prompt) {
         while (true) {
             System.out.print(prompt);
